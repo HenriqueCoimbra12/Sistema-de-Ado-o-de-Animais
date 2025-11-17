@@ -1,12 +1,12 @@
-# 🐾 Sistema de Adoção de Animais
+# Sistema de Adoção de Animais
 
-## 📋 Descrição do Projeto
+##  Descrição do Projeto
 Sistema desenvolvido em Python para gerenciar o processo completo de adoção de animais em abrigos. O sistema facilita o cadastro de animais, triagem de adotantes, controle de reservas, adoções e geração de relatórios, seguindo políticas configuráveis de elegibilidade.
 
-## 🎯 Objetivo
+##  Objetivo
 Criar uma aplicação de linha de comando (CLI) que implemente um sistema robusto de adoção animal, aplicando conceitos de Programação Orientada a Objetos como herança, encapsulamento, padrões de projeto e persistência de dados.
 
-## 🏗️ Estrutura Planejada de Classes
+##  Estrutura Planejada de Classes
 
 ### **Classes Principais**
 
@@ -32,7 +32,7 @@ Criar uma aplicação de linha de comando (CLI) que implemente um sistema robust
 7. **ListaEspera**
    - Atributos: animal, itens_fila
 
-## 🔄 Relacionamentos Principais
+##  Relacionamentos Principais
 - Reserva → Animal, Adotante (composição)
 - Adocao → Reserva (composição)
 - ListaEspera → Animal (composição)
