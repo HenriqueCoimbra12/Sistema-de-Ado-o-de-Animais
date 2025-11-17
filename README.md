@@ -38,3 +38,6 @@ Criar uma aplicação de linha de comando (CLI) que implemente um sistema robust
 - ListaEspera → Animal (composição)
 - Cachorro → Animal, VacinavelMixin, AdestravelMixin (herança múltipla)
 - Gato → Animal, VacinavelMixin (herança)
+
+## Diagrama de Classes
+![Diagrama UML do Sistema](image.png)
