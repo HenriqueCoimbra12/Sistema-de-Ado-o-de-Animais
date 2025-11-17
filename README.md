@@ -40,4 +40,4 @@ Criar uma aplicação de linha de comando (CLI) que implemente um sistema robust
 - Gato → Animal, VacinavelMixin (herança)
 
 ## Diagrama de Classes
-![Diagrama UML do Sistema](diagramaatualizado.png)
+![Diagrama UML do Sistema](diagramadois.png)
