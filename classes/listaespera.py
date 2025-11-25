@@ -21,9 +21,18 @@
 from .adotante import Adotante
 
 class ListaEspera: 
-    def __init__(self, animal, itens_fila):
+    def __init__(self, animal):
         self.animal = animal 
-        self.itens_fila = itens_fila
+        self.__itens_fila = []
+
+    def __len__(self):
+        return len(self.__itens_fila)
+
+
+    @property
+    def itens_fila(self):
+        return self.__itens_fila
+    
 
     def adicionar_adotante(self, adotante: Adotante, pontuacao: int):
         pass 

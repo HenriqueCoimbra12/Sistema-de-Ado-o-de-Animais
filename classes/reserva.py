@@ -28,7 +28,21 @@ class Reserva:
         self.data_expiracao = data_expiracao
         self.animal = animal 
         self.adotante = adotante 
-        self.status_reserva = status_reserva
+        self.__status_reserva = status_reserva
+
+
+    @property
+    def status_reserva(self):
+        return self.__status_reserva
+    
+
+    @status_reserva.setter
+    def status_reserva(self, valor):
+        estados_validos = ["ATIVA", "ENCERRADA"]
+        if valor.upper() not in estados_validos: 
+            raise ValueError("A reserva só pode ser classificada em ativa ou encerrada")
+        else: 
+            self.__status_reserva = valor 
 
     def verificar_status(self):
         pass

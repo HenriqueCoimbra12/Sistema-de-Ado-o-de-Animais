@@ -15,12 +15,28 @@
 """
 
 
-
+from datetime import datetime
 
 class VacinavelMixin:
     def __init__(self, vacinas, data_ultima_vacina):
-        self.vacinas = vacinas 
-        self.data_ultima_vacina = data_ultima_vacina
+        self.__vacinas = vacinas 
+        self.__data_ultima_vacina = data_ultima_vacina
+
+
+    @property 
+    def vacinas(self):
+        return self.__vacinas.copy()
+    
+    @property
+    def data_ultima_vacina(self):
+        return self.__data_ultima_vacina
+
+    @data_ultima_vacina.setter
+    def data_ultima_vacina(self, valor):
+        if not isinstance(valor, datetime):
+            raise ValueError("Data deve ser datetime")
+        self.__data_ultima_vacina = valor
+
 
 
     def vacinar(self):

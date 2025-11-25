@@ -27,4 +27,23 @@ class Gato (Animal, VacinavelMixin):
         self.independencia = independencia
 
 
+    @property
+    def necessidade_passeio(self):
+        return self.__necessidade_passeio
     
+    @necessidade_passeio.setter
+    def necessidade_passeio(self, valor):
+        if valor not in range (1,6):
+            raise ValueError("A necessidade de passeio deve ser classificada de 1 a 5 (1 para pouquíssimo e 5 para totalmente independente)")
+        else: 
+            self.__necessidade_passeio = valor 
+    
+
+    @property
+    def independencia(self):
+        return self.__independencia
+    
+    @independencia.setter 
+    def independencia(self, valor):
+        if valor not in range (1,6):
+            raise ValueError("A independência deve ser classificada de 1 a 5 (1 para pouquíssimo e 5 para totalmente independente)")

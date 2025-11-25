@@ -22,8 +22,7 @@
         registrar_eventos(): Registra novo evento no histórico
 """
 
-
-
+from datetime import datetime 
 
 class Animal: 
     def __init__(self, id, especie, raca, sexo, nome, idade_meses, porte, temperamento, status ):
@@ -32,19 +31,124 @@ class Animal:
         self.raca = raca
         self.sexo = sexo 
         self.nome = nome 
-        self.idade = idade_meses 
-        self.porte = porte 
+        self.__idade_meses = idade_meses 
+        self.__porte = porte 
         self.temperamento = temperamento 
-        self.status = status 
+        self.__status = status 
+        self.__historico = []
+        self.data_entrada = datetime.now()
 
+# EXISTEM TRES ATRIBUTOS ENCAPSULADOS NESTA CLASSE, SÃO ELES: STATUS, PORTE E IDADE_MESES   
+
+    @property
+    def idade_meses(self):
+        return self.__idade_meses
+    
+    @idade_meses.setter
+    def idade_meses(self, valor):
+
+        if valor < 0:
+            raise ValueError("Idade não pode ser negativa")
+        else: 
+            self.__idade_meses = valor
+
+    @property
+    def porte(self):
+        return self.__porte
+    
+    @porte.setter
+    def porte(self, valor):
+        valores_validos = ["P", "M", "G"]
+
+        if valor.upper() not in valores_validos:
+            raise ValueError("O tipo de porte que você inseriu é invalido")
+        else: 
+            self.__porte = valor.upper()
+
+    @property
+    def status(self):
+        return self.__status
+    
+    @status.setter
+    def status(self, valor):
+        status_validos = ["DISPONIVEL", "RESERVADO", "ADOTADO", "QUARENTENA", "INADOTAVEL"]
+
+        if valor.upper() not in status_validos:
+            raise ValueError ("Status deve ser DISPONIVEL, RESERVADO, ADOTADO, QUARENTENA ou INADOTAVEL")
+        else:
+            self.__status = valor.upper()
+
+
+#METODOS ESPECIAIS 
+
+    def __str__(self):
+        return f"{self.nome} - {self.especie} - {self.status}"
+
+    def __repr__(self):
+        return f"Animal: {self.nome} - Espécie: {self.especie} - Raça: {self.raca} - Sexo: {self.sexo} "
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __hash__(self):
+        return hash(self.id)
+    
+    def __lt__(self, other):
+        return self.data_entrada < other.data_entrada 
+    
+    def __iter__(self):
+        return iter(self.__historico)
+ 
+ 
     def consultar_historico(self):
-        pass 
+        """
+        Retorna o histórico completo de eventos do animal
+        Args:
+            List: Lista de dicionários com todos os eventos registrados 
+        
+        """
+
+        return self.__historico 
+
+
 
     def mostrar_informacoes(self):
-        pass 
+        return f"""
+        ID: {self.id}
+        Espécie: {self.especie}
+        Raça: {self.raca}
+        Sexo: {self.sexo}
+        Nome: {self.nome}
+        Idade: {self.idade_meses}
+        Porte: {self.porte}
+        Temperamento: {self.temperamento}
+        Status: {self.status}
+        """
 
-    def atualizar_status(self):
-        pass
+    def atualizar_status(self, novo_status: str):
+        """
+        Atualiza o status e registra essa atualização no histórico
+        Args: 
+            novo_status (str): Novo status para o animal
+        """
+        novo_status = novo_status.upper()
+        self.status = novo_status 
+        self.registrar_eventos(f"Status alterado para {novo_status}")
 
-    def registra_eventos(self):
-        pass 
+
+    def registrar_eventos(self, descricao: str):
+        """
+        Registra os eventos 
+        Args:
+            descricao (str): Parâmetro do método responsável por descrever o que aconteceu no evento
+        """
+        from datetime import datetime 
+
+        evento = {
+              "Data": datetime.now(),
+              "descricao": descricao   }
+        
+        self.__historico.append(evento)
+         
+
+    
