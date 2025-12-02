@@ -24,15 +24,34 @@
 
 
 class Adotante:
+
+    def to_dict(self):
+        return {
+            "nome": self.nome,
+            "id": self.id,
+            "idade": self.idade,
+            "tipo_moradia": self.tipo_moradia,
+            "area_util": self.area_util,
+            "experiencia_com_pets": self.experiencia_com_pets,
+            "criancas_em_casa": self.criancas_em_casa,
+            "outros_animais": self.outros_animais
+              }
+
+
+
+
+
+
     def __init__(self, nome, id, idade, tipo_moradia, area_util, experiencia_com_pets, criancas_em_casa, outros_animais):
         self.nome = nome 
         self.id = id
         self.__idade = idade
-        self.tipo_moradia = tipo_moradia 
+        self.__tipo_moradia = tipo_moradia 
         self.__area_util = area_util 
         self.__experiencia_com_pets = experiencia_com_pets
         self.criancas_em_casa = criancas_em_casa
         self.outros_animais = outros_animais
+        self.contador = 0 
 
     @property
     def idade(self):
@@ -51,10 +70,24 @@ class Adotante:
     
     @area_util.setter
     def area_util(self, valor):
-        if valor.lower() not in ["apartamento", "casa"]: 
-            raise ValueError("Para classificar-se à adoção de um pet, é necessário ter casa ou apartamento")
+        if valor < 1:
+            raise ValueError("A área útil não pode ser menor que 1m²")
         else: 
             self.__area_util = valor 
+
+    @property
+    def tipo_moradia(self):
+        return self.__tipo_moradia
+    
+    @tipo_moradia.setter
+    def tipo_moradia(self, valor):
+        if valor.lower() not in ["apartamento", "casa"]:
+            raise ValueError("O tipo de moradia só pode ser apartamento ou casa")
+        else:
+            self.__tipo_moradia = valor 
+
+
+
     
     @property 
     def experiencia_com_pets(self):
@@ -66,11 +99,10 @@ class Adotante:
             raise ValueError("A experiência com pets deve ser classificada de 1 a 5 (1 pouquíssimo e 5 bastante)")
 
     def eh_elegivel(self):
-        return (self.idade > 18 and self.area_util > 40)
+        return (self.idade >= 18 and self.area_util >= 40)
 
     def pontuacao_com_animal(self):
         pass
-        
-    
+
     def informacoes_adotantes(self):
         pass 

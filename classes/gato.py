@@ -18,9 +18,26 @@
 
 
 from animal import Animal
-from vacinavelmixin import VacinavelMixin
 
-class Gato (Animal, VacinavelMixin):
+
+class Gato (Animal):
+
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "especie": self.especie,
+            "raca": self.raca,
+            "sexo": self.sexo,
+            "nome": self.nome,
+            "idade_meses": self.idade_meses,
+            "porte": self.porte,
+            "temperamento": self.temperamento,
+            "status": self.status,
+            "necessidade_passeio": self.necessidade_passeio,
+            "independencia": self.independencia
+               }
+
     def __init__(self, id, especie, raca, sexo, nome, idade_meses, porte, temperamento, status, necessidade_passeio, independencia):
         super().__init__(id, especie, raca, sexo, nome, idade_meses, porte, temperamento, status)
         self.necessidade_passeio = necessidade_passeio

@@ -20,10 +20,22 @@
         expirar(): Marca a reserva como expirada
 """
 
-
+from datetime import datetime
+from animal import Animal 
+from adotante import Adotante
 
 class Reserva:
-    def __init__(self, id, data_expiracao, animal, adotante, status_reserva):
+    def to_dict(self):
+        return{
+            "id": self.id,
+            "data_expiracao": self.data_expiracao.isoformat(),
+            "animal": self.animal.id,
+            "adotante": self.adotante.id,
+            "status_reserva": self.status_reserva
+              }
+
+
+    def __init__(self, id, data_expiracao, status_reserva, animal: Animal, adotante: Adotante):
         self.id = id 
         self.data_expiracao = data_expiracao
         self.animal = animal 

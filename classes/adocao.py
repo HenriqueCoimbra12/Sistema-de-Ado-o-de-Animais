@@ -17,15 +17,35 @@
 """
 
 from datetime import datetime 
+from animal import Animal 
+from adotante import Adotante
 
 class Adocao:
-    def __init__(self, id, reserva, data_adocao, termo_assinado: bool, taxa, comprovante):
+
+    def to_dict(self):
+        return {
+            "reserva": self.reserva,
+            "id": self.id,
+            "data_adocao": self.data_adocao.isoformat(),
+            "termo_assinado": self.termo_assinado,
+            "taxa": self.taxa,
+            "comprovante": self.comprovante,
+            "animal": self.animal.id,
+            "adotante": self.adotante.id
+              }
+
+
+    def __init__(self, id, reserva, data_adocao, termo_assinado: bool, taxa, comprovante, animal: Animal, adotante: Adotante):
         self.id = id 
         self.reserva = reserva 
         self.__data_adocao = data_adocao
         self.__termo_assinado = termo_assinado
         self.__taxa = taxa
         self.comprovante = comprovante
+        self.adotante = adotante 
+        self.animal = animal 
+
+
 
     @property
     def taxa(self):
@@ -63,4 +83,13 @@ class Adocao:
            
 
     def gerar_contrato(self):
-        pass
+        """
+        Geração de contrato onde ocorre a relação do adotante e o adotado (animal)
+        """
+        contrato = (f"Animal: {self.animal.nome}\nRaça: {self.animal.raca} \nAdotante: {self.adotante.nome} \n Idade: {self.adotante.idade} \nData: {self.data_adocao}")
+        print(contrato)
+        return contrato 
+
+
+#teste do método: 
+

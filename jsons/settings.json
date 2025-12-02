@@ -1,0 +1,43 @@
+{
+    "politicas":{
+        "idade_minima_adotate": 18,
+        "area_minima_porte_G": 75,
+        "duracao_reserva_horas": 48
+    },
+
+    "pesos_compatibilidade":{
+        "porte_moradia":{
+            "G":{ "casa": 30, "apartamento": 0},
+            "M":{"casa": 25, "apartamento": 20},
+            "P":{"casa": 25, "apartamento": 23}
+
+        }
+    },
+
+    "experiencia_com_pets":{
+        "1": 10,
+        "2": 15,
+        "3": 20,
+        "4": 25, 
+        "5": 30
+
+    },
+
+    "temperamento_com_criancas":{
+        "arisco": -15,
+        "tranquilo": 25
+
+    }
+
+    }
+
+
+
+
+
+
+
+
+
+
+

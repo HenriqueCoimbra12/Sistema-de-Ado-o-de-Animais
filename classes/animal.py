@@ -25,6 +25,28 @@
 from datetime import datetime 
 
 class Animal: 
+
+
+    def to_dict(self):
+        """
+        Converte o objeto Animal para dicionário, pronto para ser salvo em JSON.
+        """
+        return {
+            "id": self.id,
+            "especie": self.especie,
+            "raca": self.raca,
+            "sexo": self.sexo,
+            "nome": self.nome,
+            "idade_meses": self.idade_meses,
+            "porte": self.porte,
+            "temperamento": self.temperamento,
+            "status": self.status,
+            "data_entrada": self.data_entrada.isoformat(),  # Converte datetime para string
+            "historico": self.__historico  
+        }
+    
+
+
     def __init__(self, id, especie, raca, sexo, nome, idade_meses, porte, temperamento, status ):
         self.id = id 
         self.especie = especie 
@@ -33,12 +55,26 @@ class Animal:
         self.nome = nome 
         self.__idade_meses = idade_meses 
         self.__porte = porte 
-        self.temperamento = temperamento 
+        self.temperamento = temperamento
         self.__status = status 
         self.__historico = []
         self.data_entrada = datetime.now()
 
 # EXISTEM TRES ATRIBUTOS ENCAPSULADOS NESTA CLASSE, SÃO ELES: STATUS, PORTE E IDADE_MESES   
+
+
+    @property
+    def temperamento(self):
+        return self.__temperamento
+    
+    @temperamento.setter 
+    def temperamento(self, valor):
+        if valor.lower() not in ["arisco", "dócil"]:
+            raise ValueError("O animal só pode ser classificado em arisco ou tranquilo")
+        else: 
+            self.__temperamento = valor 
+
+
 
     @property
     def idade_meses(self):
@@ -150,5 +186,4 @@ class Animal:
         
         self.__historico.append(evento)
          
-
     
