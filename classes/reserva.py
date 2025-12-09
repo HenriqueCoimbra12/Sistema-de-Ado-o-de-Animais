@@ -20,56 +20,54 @@
         expirar(): Marca a reserva como expirada
 """
 
-from datetime import datetime
+
 from animal import Animal 
-from adotante import Adotante
+from adotante import Adotante 
+import json
+from datetime import datetime, timedelta
 
 class Reserva:
-    def to_dict(self):
-        return{
-            "id": self.id,
-            "data_expiracao": self.data_expiracao.isoformat(),
-            "animal": self.animal.id,
-            "adotante": self.adotante.id,
-            "status_reserva": self.status_reserva
-              }
-
-
-    def __init__(self, id, data_expiracao, status_reserva, animal: Animal, adotante: Adotante):
+    def __init__(self, id, animal: Animal, adotante: Adotante):
         self.id = id 
-        self.data_expiracao = data_expiracao
         self.animal = animal 
         self.adotante = adotante 
-        self.__status_reserva = status_reserva
-
-
+        
+        # Configuração de tempo
+        with open('jsons/settings.json') as f:
+            config = json.load(f)
+            self.duracao_horas = config["reserva"]["duracao_horas"]
+        
+        # Datas
+        self.data_criacao = datetime.now()
+        self.data_expiracao = self.data_criacao + timedelta(hours=self.duracao_horas)
+        
+        # Status
+        self.__status_reserva = "ATIVA"
+    
     @property
     def status_reserva(self):
         return self.__status_reserva
     
-
     @status_reserva.setter
-    def status_reserva(self, valor):
-        estados_validos = ["ATIVA", "ENCERRADA"]
-        if valor.upper() not in estados_validos: 
-            raise ValueError("A reserva só pode ser classificada em ativa ou encerrada")
-        else: 
-            self.__status_reserva = valor 
-
-    def verificar_status(self):
-        pass
-
-    def atualizar_status(self):
-        pass 
-
-    def gerar_contrato(self):
-        pass 
-
-    def calcular_taxa(self):
-        pass 
-
-    def esta_ativa(self):
-        pass 
-
-    def expirar(self):
-        pass 
+    def status_reserva(self, novo_status):
+        status_validos = ["ATIVA", "EXPIRADA", "CANCELADA", "CONCLUIDA"]
+        if novo_status.upper() not in status_validos:
+            raise ValueError(f"Status deve ser um dos: {status_validos}")
+        self.__status_reserva = novo_status.upper()
+    
+    def esta_expirada(self):
+        """Verifica se a reserva expirou."""
+        if datetime.now() > self.data_expiracao:
+            self.status_reserva = "EXPIRADA"
+            return True
+        return False
+    
+    def tempo_restante(self):
+        """Retorna horas/minutos restantes."""
+        if self.esta_expirada():
+            return "Expirada"
+        
+        restante = self.data_expiracao - datetime.now()
+        horas = restante.seconds // 3600
+        minutos = (restante.seconds % 3600) // 60
+        return f"{horas}h {minutos}min"

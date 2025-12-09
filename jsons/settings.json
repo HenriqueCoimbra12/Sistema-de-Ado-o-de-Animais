@@ -1,35 +1,44 @@
 {
-    "politicas":{
-        "idade_minima_adotate": 18,
-        "area_minima_porte_G": 75,
-        "duracao_reserva_horas": 48
-    },
 
-    "pesos_compatibilidade":{
-        "porte_moradia":{
-            "G":{ "casa": 30, "apartamento": 0},
-            "M":{"casa": 25, "apartamento": 20},
-            "P":{"casa": 25, "apartamento": 23}
 
-        }
-    },
+  "pesos_compatibilidade": {
 
-    "experiencia_com_pets":{
-        "1": 10,
-        "2": 15,
-        "3": 20,
-        "4": 25, 
-        "5": 30
+    "politicas": {
+      "idade": 18,
+      "area_minima_porte_G": 75,
+      "porte_G_exige_casa": true,
+      "area_minima_outros": 40
 
     },
 
-    "temperamento_com_criancas":{
-        "arisco": -15,
-        "tranquilo": 25
 
+    "porte_moradia": {
+      "G": {"casa": 30, "apartamento": 0},
+      "M": {"casa": 20, "apartamento": 15},
+      "P": {"casa": 10, "apartamento": 25}
+    },
+
+    "experiencia": {
+      "1": 5, "2": 10, "3": 15, "4": 20, "5": 25
+    },
+
+    "idade_x_energia":{
+      "jovem": 25,
+      "adulto": 20,
+      "idoso": 10
+    },
+
+
+    "temperamento_criancas": -10,
+
+    "reserva":{
+      "maximo_de_tempo_de_1_reserva": 48,
+      "maximo_reservas_ativa_por_1_animal": 1
     }
 
-    }
+
+  }
+}
 
 
 

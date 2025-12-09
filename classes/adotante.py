@@ -20,7 +20,7 @@
         informacoes_adotantes(): Retorna informações formatadas
 """
 
-
+from classes.animal import Animal 
 
 
 class Adotante:
@@ -97,12 +97,30 @@ class Adotante:
     def experiencia_com_pets(self, valor):
         if valor not in range (1,6):
             raise ValueError("A experiência com pets deve ser classificada de 1 a 5 (1 pouquíssimo e 5 bastante)")
+        self.__experiencia_com_pets = valor 
 
-    def eh_elegivel(self):
-        return (self.idade >= 18 and self.area_util >= 40)
+    def eh_elegivel(self, animal: Animal):
+        if self.idade < 18:
+            return False       
+        if animal.porte == "G":
+            if self.tipo_moradia == "casa" and self.area_util >= 75:
+                return True 
+            else:
+                return False
+        if animal.porte == "M" or animal.porte == "P":
+            if self.area_util < 40:
+                return False 
+            else: 
+                return True 
+            
+        if animal.porte not in ["M", "P", "G"]:
+            raise ValueError("O porte de um animal só pode ser definido em P, M ou G")
 
+        
     def pontuacao_com_animal(self):
         pass
 
     def informacoes_adotantes(self):
         pass 
+
+

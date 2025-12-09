@@ -56,7 +56,8 @@ class Animal:
         self.__idade_meses = idade_meses 
         self.__porte = porte 
         self.temperamento = temperamento
-        self.__status = status 
+        self.__status = None
+        self.status = status 
         self.__historico = []
         self.data_entrada = datetime.now()
 
@@ -101,18 +102,37 @@ class Animal:
         else: 
             self.__porte = valor.upper()
 
+
     @property
     def status(self):
         return self.__status
     
     @status.setter
-    def status(self, valor):
-        status_validos = ["DISPONIVEL", "RESERVADO", "ADOTADO", "QUARENTENA", "INADOTAVEL"]
-
-        if valor.upper() not in status_validos:
-            raise ValueError ("Status deve ser DISPONIVEL, RESERVADO, ADOTADO, QUARENTENA ou INADOTAVEL")
-        else:
-            self.__status = valor.upper()
+    def status(self, novo_status):
+        novo_status = novo_status.upper()
+        
+        status_validos = ["DISPONIVEL", "RESERVADO", "ADOTADO", "DEVOLVIDO", "QUARENTENA", "INADOTAVEL"]
+        if novo_status not in status_validos:
+            raise ValueError(f"Status deve ser um dos: {status_validos}")
+        
+        if hasattr(self, '_Animal__status') and self.__status is not None:
+            status_atual = self.__status
+            
+            transicoes = {
+                "DISPONIVEL": ["RESERVADO", "INADOTAVEL"],
+                "RESERVADO": ["ADOTADO"],
+                "ADOTADO": ["DEVOLVIDO"],
+                "DEVOLVIDO": ["QUARENTENA", "DISPONIVEL", "INADOTAVEL"],
+                "QUARENTENA": ["DISPONIVEL", "INADOTAVEL"]
+            }
+            
+            if status_atual in transicoes and novo_status not in transicoes[status_atual]:
+                raise ValueError(
+                    f"Não pode mudar de '{status_atual}' para '{novo_status}'. "
+                    f"Transições permitidas: {transicoes[status_atual]}"
+                )
+        
+        self.__status = novo_status
 
 
 #METODOS ESPECIAIS 
@@ -187,3 +207,30 @@ class Animal:
         self.__historico.append(evento)
          
     
+"""
+#--------------------------Teste da regra de negócio das transições entre estados-----------------------------
+# id, especie, raca, sexo, nome, idade_meses, porte, temperamento, status
+animal = Animal(1, "cachorro", "labrador", "masculino", "marley", "24", "G", "dócil", "DISPONIVEL")
+print("Status atual:", animal.status)
+
+try:
+    animal.status = "RESERVADO"
+    print("DISPONIVEL -> RESERVADO")
+except ValueError as e: 
+    print(f"Erro: {e}")
+
+
+try:
+    animal.status = "ADOTADO"
+    print("RESERVADO -> ADOTADO")
+except ValueError as e:
+    print(f"Erro: {e}")
+
+#deve falhar
+
+try: 
+    animal.status = "DISPONIVEL"
+    print("ADOTADO -> DISPONÍVEL")
+except ValueError as e: 
+    print(f"Erro: {e}")
+"""
