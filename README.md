@@ -94,20 +94,20 @@ CalculadorCompatibilidade → Animal, Adotante (dependência)
 
 
 ## Guia de Instalação
--Clonar o repositório: 
+***-Clonar o repositório:***
 
 Primeiro passo: git clone https://github.com/seu-usuario/seu-repositorio.git
 
 Segundo passo: cd seu-repositorio 
  
--Executar programa (comando para ter acesso a toda a lista de comandos existente no programa):
+***-Executar programa*** (comando para ter acesso a toda a lista de comandos existente no programa):
  
 **python main.py --help**
 
 ## Guia de uso 
--Usar "python main.py [comando] [argumentos]" 
+***-Usar "python main.py [comando] [argumentos]"***
 
-Exemplo de uso: 
+***Exemplo de uso:***
             
-**python main.py reservar --animal_id 1 --adotante_id** 
+python main.py reservar --animal_id 1 --adotante_id
 
