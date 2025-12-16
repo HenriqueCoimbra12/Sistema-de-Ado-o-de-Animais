@@ -96,8 +96,8 @@ CalculadorCompatibilidade → Animal, Adotante (dependência)
 
 ## Guia de Instalação
 1. Clonar o repositório:
-    git clone https://github.com/seu-usuario/seu-repositorio.git
-    cd seu-repositorio
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
 2. Executar programa (comando para ter acesso a toda a lista de comandos existente no programa)
    python main.py --help
 
