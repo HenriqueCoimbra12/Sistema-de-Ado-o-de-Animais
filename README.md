@@ -85,87 +85,24 @@ Gato → Animal (herança)
 
 CalculadorCompatibilidade → Animal, Adotante (dependência)
 
-## UML TEXTUAL COMPLETA DO SISTEMA
-classDiagram
-    direction LR
+## Pré-requisitos
+(Este projeto é uma aplicação de linha de comando (CLI) desenvolvida em Python, utilizando a biblioteca padrão argparse.)
+1. Python 3.9+
+ -Para verificar a versão do Python: 
+     python --version ou python3 --version
+2. pip (gerenciador de pacotes do Python)
+3. Git (opcional, mas recomendado)
 
-    %% ENUMS
-    class StatusAnimal {
-      <<enumeration>>
-      DISPONIVEL
-      RESERVADO
-      ADOTADO
-      ...
-    }
-    class StatusReserva {
-      <<enumeration>>
-      ATIVA
-      EXPIRADA
-      ...
-    }
 
-    %% CLASSES
-    class Animal {
-      + id: int
-      - __historico: List[Dict]
-      - __porte: str
-      - __status: StatusAnimal
-      + consultar_historico()
-      + atualizar_status(novo_status)
-    }
+## Guia de Instalação
+1. Clonar o repositório:
+    git clone https://github.com/seu-usuario/seu-repositorio.git
+    cd seu-repositorio
+2. Executar programa (comando para ter acesso a toda a lista de comandos existente no programa)
+   python main.py --help
 
-    class Cachorro
-    class Gato
+## Guia de uso 
+Usar "python main.py [comando] [argumentos]"
+    Exemplo de uso: 
+            python main.py reservar --animal_id 1 --adotante_id 2 
 
-    class Adotante {
-      + id: int
-      - __idade: int
-      - __area_util: float
-      + eh_elegivel(animal)
-    }
-
-    class Reserva {
-      + id: int
-      + animal: Animal
-      + adotante: Adotante
-      + status_reserva: StatusReserva
-      + esta_expirada()
-    }
-
-    class Adocao {
-      + id: int
-      + reserva: Reserva
-      + animal: Animal
-      + adotante: Adotante
-      + gerar_contrato()
-    }
-
-    class ListaEspera {
-      - __itens_fila: List[Tuple]
-      + animal: Animal
-      + adicionar_adotante(adotante, pontuacao)
-      + proximo_da_fila()
-    }
-
-    class CalculadorCompatibilidade {
-      - pesos: Dict
-      + calcular(animal, adotante)
-    }
-
-    %% RELACIONAMENTOS
-    Animal <|-- Cachorro : Herança
-    Animal <|-- Gato : Herança
-
-    Adocao "1" -- "1" Reserva : transação
-    Adocao "1" -- "1" Animal : realizado para
-    Adocao "1" -- "1" Adotante : realizado por
-
-    Reserva "1" -- "1" Animal : reservado
-    Reserva "1" -- "1" Adotante : por
-
-    ListaEspera "1" -- "1" Animal : fila para
-    ListaEspera "1" -- "*" Adotante : contém
-
-    CalculadorCompatibilidade ..> Animal : usa
-    CalculadorCompatibilidade ..> Adotante : usa
-    Adotante ..> Animal : eh_elegivel()
