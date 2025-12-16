@@ -4,7 +4,6 @@ import os
 from classes.reserva import Reserva 
 from classes.animal import Animal
 from classes.adocao import Adocao
-from classes.calculocompatibilidade import CalculadorCompatibilidade
 from classes.persistencia import salvar_animais, carregar_animais
 from classes.persistencia import salvar_adotantes, carregar_adotantes
 from classes.persistencia import salvar_reservas, carregar_reservas
@@ -13,126 +12,6 @@ from classes.persistencia import salvar_filas, carregar_filas
 from classes.adotante import Adotante 
 from datetime import datetime, timedelta
 
-#Essa parte do código é destinada ao calculo de compatibiidade 
-#OBS: ESSA PARTE DO CÓDIGO FOI FEITA COMPLETAMENTE POR IA, POIS NÃO ME RESTAM MAIS FORÇAS 
-
-def encontrar_animal_por_id(animais, animal_id):
-    """Encontra animal pelo ID"""
-    for animal in animais:
-        if animal.id == animal_id:
-            return animal
-    return None
-
-def encontrar_adotante_por_id(adotantes, adotante_id):
-    """Encontra adotante pelo ID"""
-    for adotante in adotantes:
-        if adotante.id == adotante_id:
-            return adotante
-    return None
-
-def calcular_e_exibir_compatibilidade(animal, adotante):
-    """
-    Calcula e exibe a compatibilidade entre animal e adotante
-    Retorna a pontuação (0-100)
-    """
-    if not animal or not adotante:
-        print(" -> Animal ou adotante não encontrado.")
-        return 0
-    
-    calculador = CalculadorCompatibilidade()
-    
-    # Verificar elegibilidade primeiro
-    try:
-        if not adotante.eh_elegivel(animal):
-            print(f" -> {adotante.nome} NÃO é elegível para adotar {animal.nome}")
-            print(f"   Motivo: Não atende às políticas mínimas de adoção")
-            return 0
-    except Exception as e:
-        print(f" ->  Erro ao verificar elegibilidade: {e}")
-    
-    # Calcular pontuação
-    pontuacao = calculador.calcular(animal, adotante)
-    
-    # Exibir resultados
-    print(f"\n -> COMPATIBILIDADE ENTRE:")
-    print(f"   Animal: {animal.nome} ({animal.especie}, {animal.porte})")
-    print(f"   Adotante: {adotante.nome} ({adotante.idade} anos, {adotante.tipo_moradia})")
-    print(f"\n   Pontuação: {pontuacao}/100")
-    
-    # Interpretação da pontuação
-    if pontuacao >= 80:
-        print(f" -> COMPATIBILIDADE ALTA - Adoção recomendada!")
-    elif pontuacao >= 60:
-        print(f"  ->  COMPATIBILIDADE MÉDIA - Avaliação cuidadosa necessária")
-    elif pontuacao >= 40:
-        print(f"  ->  COMPATIBILIDADE BAIXA - Recomenda-se considerar outros animais")
-    else:
-        print(f"  ->  COMPATIBILIDADE MUITO BAIXA - Não recomendado")
-    
-    return pontuacao
-
-def listar_animais_compativeis(adotante, animais):
-    """
-    Lista animais compatíveis para um adotante específico
-    """
-    if not adotante:
-        print(" -> Adotante não encontrado.")
-        return []
-    
-    calculador = CalculadorCompatibilidade()
-    compatibilidades = []
-    
-    print(f"\n -> ANIMAIS COMPATÍVEIS COM {adotante.nome}:")
-    print("-" * 50)
-    
-    animais_disponiveis = [a for a in animais if a.status == "DISPONIVEL"]
-    
-    if not animais_disponiveis:
-        print("Nenhum animal disponível no momento.")
-        return []
-    
-    for animal in animais_disponiveis:
-        try:
-            # Verificar elegibilidade
-            if not adotante.eh_elegivel(animal):
-                continue
-                
-            # Calcular pontuação
-            pontuacao = calculador.calcular(animal, adotante)
-            
-            if pontuacao >= 40:  # Limite mínimo de compatibilidade
-                compatibilidades.append({
-                    'animal': animal,
-                    'pontuacao': pontuacao
-                })
-        except Exception as e:
-            continue  # Ignora erros e continua
-    
-    # Ordenar por pontuação (maior primeiro)
-    compatibilidades.sort(key=lambda x: x['pontuacao'], reverse=True)
-    
-    if not compatibilidades:
-        print("Nenhum animal compatível encontrado no momento.")
-        return []
-    
-    print(f"Encontrados {len(compatibilidades)} animal(s) compatível(is):")
-    
-    for i, item in enumerate(compatibilidades[:10], 1):  # Top 10
-        animal = item['animal']
-        pontuacao = item['pontuacao']
-        
-        print(f"\n{i}. {animal.nome} - {animal.especie} ({animal.porte})")
-        print(f"   ID: {animal.id} | Raça: {animal.raca}")
-        print(f"   Idade: {animal.idade_meses} meses | Temperamento: {animal.temperamento}")
-        print(f"   Compatibilidade: {pontuacao}/100")
-        
-        # Sugestão baseada na pontuação
-        if pontuacao >= 80:
-            print(f" -> SUGESTÃO: Excelente compatibilidade!")
-        elif pontuacao >= 60:
-            print(f" -> SUGESTÃO: Boa compatibilidade")
-    
-    return compatibilidades
 
 
 def main():
@@ -618,29 +497,7 @@ Exemplos de uso:
 
 #-----------------------------------------ARGS DE CALCULAR COMPATIBILIDADE--------------------------------------------------
 
-    elif args.comando == 'calcular_compatibilidade':
-        print("\n -> CÁLCULO DE COMPATIBILIDADE")
-        print("-" * 40)
-        
-        animal = encontrar_animal_por_id(animais_em_memoria, args.animal)
-        adotante = encontrar_adotante_por_id(adotantes_em_memoria, args.adotante)
-        
-        if not animal:
-            print(f"❌ Animal ID {args.animal} não encontrado.")
-            return
-        
-        if not adotante:
-            print(f"❌ Adotante ID {args.adotante} não encontrado.")
-            return
-        
-        calcular_e_exibir_compatibilidade(animal, adotante)
-
     
-
-
-
-
-
 
 #---------------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__': 

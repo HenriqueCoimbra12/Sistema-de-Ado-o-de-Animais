@@ -50,7 +50,8 @@ def salvar_adocoes(adocoes, caminho='jsons/adocoes.json'):
     with open(caminho, "w", encoding='utf-8') as f: 
         json.dump(dados, f, indent=2)
 
-def carregar_adocoes(caminho = 'jsons/adocoes.json'):
+def carregar_adocoes(caminho='jsons/adocoes.json'):
+    """Carrega adoções do arquivo JSON - VERSÃO CORRIGIDA"""
     try:
         if not os.path.exists(caminho) or os.path.getsize(caminho) == 0:
             print(" -> Arquivo de adoções vazio ou não encontrado. Retornando lista vazia.")
@@ -61,12 +62,23 @@ def carregar_adocoes(caminho = 'jsons/adocoes.json'):
         
         adocoes = []
         for d in dados:
+            # CORREÇÃO 1: Use as chaves corretas do seu JSON
+            # CORREÇÃO 2: Passe os parâmetros corretos para a classe Adocao
+            
+            # Primeiro, precisamos converter IDs para objetos reais
+            # Mas isso requer acesso aos animais e adotantes carregados...
+            # Vamos simplificar: carregar apenas dados básicos
+            
+            # Crie um objeto Adocao com os dados corretos
             adocao = Adocao(
                 id=d['id'],
-                id_animal=d['id_animal'],
-                id_adotante=d['id_adotante'], 
-                data=d['data'], 
-                status=d.get('status', 'concluida')
+                reserva=d.get('reserva'),  # Pode ser None
+                data_adocao=d['data_adocao'],  # Era 'data'
+                termo_assinado=d['termo_assinado'],
+                taxa=d['taxa'],
+                comprovante=d['comprovante'],
+                animal=d['animal'],  # ID do animal
+                adotante=d['adotante']  # ID do adotante
             )
                      
             adocoes.append(adocao)
@@ -76,6 +88,10 @@ def carregar_adocoes(caminho = 'jsons/adocoes.json'):
         
     except json.JSONDecodeError:
         print(f" -> Erro: Arquivo {caminho} tem JSON inválido.")
+        return []
+    except KeyError as e:
+        print(f" -> Erro: Chave {e} não encontrada no JSON de adoções.")
+        print(f" -> Verifique se o arquivo adocoes.json está no formato correto.")
         return []
     except Exception as e:
         print(f" -> Erro ao carregar adoções: {e}")

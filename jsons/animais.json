@@ -53,5 +53,16 @@
     "porte": "M",
     "temperamento": "d\u00f3cil",
     "status": "ADOTADO"
+  },
+  {
+    "id": 6,
+    "especie": "Cachorro",
+    "raca": "Mista",
+    "sexo": "M",
+    "nome": "scooby",
+    "idade_meses": 24,
+    "porte": "M",
+    "temperamento": "d\u00f3cil",
+    "status": "DISPONIVEL"
   }
 ]
