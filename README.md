@@ -26,7 +26,7 @@ Atributos específicos: necessidade_passeio, independencia
 
 Validações: necessidade_passeio e independencia entre 1-5
 
-3. Gato (Herda de Animal)
+**3. Gato (Herda de Animal)**
 
 Atributos específicos: necessidade_passeio, independencia
 
@@ -94,10 +94,11 @@ CalculadorCompatibilidade → Animal, Adotante (dependência)
 
 
 ## Guia de Instalação
--Clonar o repositório:
-git clone https://github.com/seu-usuario/seu-repositorio.git
+-Clonar o repositório: 
 
-cd seu-repositorio 
+Primeiro passo: git clone https://github.com/seu-usuario/seu-repositorio.git
+
+Segundo passo: cd seu-repositorio 
  
 -Executar programa (comando para ter acesso a toda a lista de comandos existente no programa):
  
