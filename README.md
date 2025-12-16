@@ -87,9 +87,9 @@ CalculadorCompatibilidade → Animal, Adotante (dependência)
 
 ## Pré-requisitos
 (Este projeto é uma aplicação de linha de comando (CLI) desenvolvida em Python, utilizando a biblioteca padrão argparse.)
-1. Python 3.9+
- -Para verificar a versão do Python: 
-     python --version ou python3 --version
+1. Python 3.9+ \
+ -Para verificar a versão do Python: \
+     python --version ou python3 --version \
 2. pip (gerenciador de pacotes do Python)
 3. Git (opcional, mas recomendado)
 
@@ -97,12 +97,12 @@ CalculadorCompatibilidade → Animal, Adotante (dependência)
 ## Guia de Instalação
 1. Clonar o repositório:
 git clone https://github.com/seu-usuario/seu-repositorio.git \
-cd seu-repositorio
- Executar programa (comando para ter acesso a toda a lista de comandos existente no programa)
+cd seu-repositorio \
+ Executar programa (comando para ter acesso a toda a lista de comandos existente no programa) \
    python main.py --help
 
 ## Guia de uso 
-Usar "python main.py [comando] [argumentos]"
-    Exemplo de uso: 
-            python main.py reservar --animal_id 1 --adotante_id 2 
+Usar "python main.py [comando] [argumentos]" \
+    Exemplo de uso: \
+            python main.py reservar --animal_id 1 --adotante_id 2 \
 
