@@ -10,7 +10,7 @@ Criar uma aplicação de linha de comando (CLI) que implemente um sistema robust
 
 ### **Classes Principais**
 
-1. Animal (Classe Base)
+**1. Animal (Classe Base)**
 
 Atributos: id, nome, especie, raca, sexo, idade_meses, porte, temperamento, status, data_entrada, historico_eventos
 
@@ -20,7 +20,7 @@ Métodos especiais: str, repr, eq, hash, lt, iter
 
 Encapsulamento: Atributos porte, idade_meses, temperamento e status com @property e validações
 
-2. Cachorro (Herda de Animal)
+**2. Cachorro (Herda de Animal)**
 
 Atributos específicos: necessidade_passeio, independencia
 
@@ -32,7 +32,7 @@ Atributos específicos: necessidade_passeio, independencia
 
 Validações: necessidade_passeio e independencia entre 1-5
 
-4. Adotante
+**4. Adotante**
 
 Atributos: id, nome, idade, tipo_moradia, area_util, experiencia_com_pets, criancas_em_casa, outros_animais
 
@@ -40,7 +40,7 @@ Validações: idade ≥ 0, tipo_moradia ∈ {casa, apartamento}, area_util ≥ 1
 
 Método: eh_elegivel(animal) - verifica políticas de adoção
 
-5. Reserva
+**5. Reserva**
 
 Atributos: id, animal, adotante, data_expiracao, status_reserva
 
@@ -48,7 +48,7 @@ Estados: ATIVA, EXPIRADA, CANCELADA, CONCLUIDA
 
 Métodos: esta_expirada(), tempo_restante()
 
-6. Adocao
+**6. Adocao**
 
 Atributos: id, reserva, data_adocao, termo_assinado, comprovante, taxa, animal, adotante
 
@@ -56,7 +56,7 @@ Validações: taxa ≥ 0, data_adocao não pode ser passado
 
 Método: gerar_contrato() - gera contrato de adoção
 
-7. ListaEspera
+**7. ListaEspera**
 
 Atributos: animal, itens_fila
 
@@ -64,7 +64,7 @@ Método especial: len()
 
 Métodos: adicionar_adotante(), proximo_da_fila(), remover_proximo(), notificar_proximo()
 
-8. CalculadorCompatibilidade
+**8. CalculadorCompatibilidade**
 
 Função: Calcula pontuação 0-100 entre animal e adotante
 
@@ -94,17 +94,17 @@ CalculadorCompatibilidade → Animal, Adotante (dependência)
 
 
 ## Guia de Instalação
-1. Clonar o repositório:
- git clone https://github.com/seu-usuario/seu-repositorio.git
+-Clonar o repositório:
+git clone https://github.com/seu-usuario/seu-repositorio.git
 
- cd seu-repositorio 
+cd seu-repositorio 
  
- Executar programa (comando para ter acesso a toda a lista de comandos existente no programa):
+-Executar programa (comando para ter acesso a toda a lista de comandos existente no programa):
  
- **python main.py --help**
+**python main.py --help**
 
 ## Guia de uso 
-Usar "python main.py [comando] [argumentos]" 
+-Usar "python main.py [comando] [argumentos]" 
 
 Exemplo de uso: 
             
