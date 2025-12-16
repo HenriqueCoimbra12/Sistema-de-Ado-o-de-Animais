@@ -86,192 +86,86 @@ Gato → Animal (herança)
 CalculadorCompatibilidade → Animal, Adotante (dependência)
 
 ## UML TEXTUAL COMPLETA DO SISTEMA
-@startuml
+classDiagram
+    direction LR
 
-' ===== ENUMS E ESTADOS =====
-enum StatusAnimal {
-  DISPONIVEL
-  RESERVADO
-  ADOTADO
-  DEVOLVIDO
-  QUARENTENA
-  INADOTAVEL
-}
+    %% ENUMS
+    class StatusAnimal {
+      <<enumeration>>
+      DISPONIVEL
+      RESERVADO
+      ADOTADO
+      ...
+    }
+    class StatusReserva {
+      <<enumeration>>
+      ATIVA
+      EXPIRADA
+      ...
+    }
 
-enum StatusReserva {
-  ATIVA
-  EXPIRADA
-  CANCELADA
-  CONCLUIDA
-}
+    %% CLASSES
+    class Animal {
+      + id: int
+      - __historico: List[Dict]
+      - __porte: str
+      - __status: StatusAnimal
+      + consultar_historico()
+      + atualizar_status(novo_status)
+    }
 
-' ===== CLASSES PRINCIPAIS =====
-class Animal {
-  # __historico: List[Dict]
-  - __porte: str
-  - __idade_meses: int
-  - __temperamento: str
-  - __status: str
-  + id: int
-  + especie: str
-  + raca: str
-  + sexo: str
-  + nome: str
-  + data_entrada: datetime
-  + temperamento: str
-  + idade_meses: int
-  + porte: str
-  + status: str
-  --
-  + __str__()
-  + __repr__()
-  + __eq__(other)
-  + __hash__()
-  + __lt__(other)
-  + __iter__()
-  + to_dict()
-  + consultar_historico()
-  + mostrar_informacoes()
-  + atualizar_status(novo_status)
-  + registrar_eventos(descricao)
-}
+    class Cachorro
+    class Gato
 
-class Cachorro {
-  - __necessidade_passeio: int
-  - __independencia: int
-  + necessidade_passeio: int
-  + independencia: int
-  --
-  + to_dict()
-}
+    class Adotante {
+      + id: int
+      - __idade: int
+      - __area_util: float
+      + eh_elegivel(animal)
+    }
 
-class Gato {
-  - __necessidade_passeio: int
-  - __independencia: int
-  + necessidade_passeio: int
-  + independencia: int
-  --
-  + to_dict()
-}
+    class Reserva {
+      + id: int
+      + animal: Animal
+      + adotante: Adotante
+      + status_reserva: StatusReserva
+      + esta_expirada()
+    }
 
-class Adotante {
-  - __idade: int
-  - __tipo_moradia: str
-  - __area_util: float
-  - __experiencia_com_pets: int
-  + nome: str
-  + id: int
-  + criancas_em_casa: bool
-  + outros_animais: bool
-  + contador: int
-  + idade: int
-  + area_util: float
-  + tipo_moradia: str
-  + experiencia_com_pets: int
-  --
-  + __str__()
-  + to_dict()
-  + eh_elegivel(animal)
-}
+    class Adocao {
+      + id: int
+      + reserva: Reserva
+      + animal: Animal
+      + adotante: Adotante
+      + gerar_contrato()
+    }
 
-class Reserva {
-  - __status_reserva: str
-  + id: int
-  + animal: Animal
-  + adotante: Adotante
-  + duracao_horas: int
-  + data_criacao: datetime
-  + data_expiracao: datetime
-  + status_reserva: str
-  --
-  + esta_expirada()
-  + tempo_restante()
-}
+    class ListaEspera {
+      - __itens_fila: List[Tuple]
+      + animal: Animal
+      + adicionar_adotante(adotante, pontuacao)
+      + proximo_da_fila()
+    }
 
-class Adocao {
-  - __data_adocao: datetime
-  - __termo_assinado: bool
-  - __taxa: float
-  + id: int
-  + reserva: Reserva
-  + comprovante: str
-  + animal: Animal
-  + adotante: Adotante
-  + data_adocao: datetime
-  + termo_assinado: bool
-  + taxa: float
-  --
-  + to_dict()
-  + gerar_contrato()
-}
+    class CalculadorCompatibilidade {
+      - pesos: Dict
+      + calcular(animal, adotante)
+    }
 
-class ListaEspera {
-  - __itens_fila: List[Tuple]
-  + animal: Animal
-  + itens_fila: List
-  --
-  + __len__()
-  + adicionar_adotante(adotante, pontuacao)
-  + proximo_da_fila()
-  + remover_proximo()
-  + notificar_proximo()
-  + to_dict()
-}
+    %% RELACIONAMENTOS
+    Animal <|-- Cachorro : Herança
+    Animal <|-- Gato : Herança
 
-class CalculadorCompatibilidade {
-  - pesos: Dict
-  --
-  + calcular(animal, adotante)
-  - _calcular_idade_energia(animal)
-}
+    Adocao "1" -- "1" Reserva : transação
+    Adocao "1" -- "1" Animal : realizado para
+    Adocao "1" -- "1" Adotante : realizado por
 
-' ===== FUNÇÕES DE PERSISTÊNCIA =====
-note "Funções Repository" as RepoNote {
-  salvar_animais()
-  carregar_animais()
-  salvar_adocoes()
-  carregar_adocoes()
-  salvar_reservas()
-  carregar_reservas()
-  salvar_adotantes()
-  carregar_adotantes()
-  salvar_filas()
-  carregar_filas()
-}
+    Reserva "1" -- "1" Animal : reservado
+    Reserva "1" -- "1" Adotante : por
 
-' ===== RELACIONAMENTOS =====
-Animal <|-- Cachorro
-Animal <|-- Gato
+    ListaEspera "1" -- "1" Animal : fila para
+    ListaEspera "1" -- "*" Adotante : contém
 
-Adocao --> "1" Reserva
-Adocao --> "1" Animal
-Adocao --> "1" Adotante
-
-Reserva --> "1" Animal
-Reserva --> "1" Adotante
-
-ListaEspera --> "1" Animal
-ListaEspera --> "*" Adotante
-
-CalculadorCompatibilidade --> Animal
-CalculadorCompatibilidade --> Adotante
-
-Adotante --> Animal : eh_elegivel()
-
-' ===== PADRÕES DE PROJETO IDENTIFICADOS =====
-note "Padrões Implementados" as PatternsNote {
-  **Strategy**: CalculadorCompatibilidade
-  **State**: StatusAnimal (transições controladas)
-  **Repository**: Funções de persistência
-  **Observer**: ListaEspera notifica adotantes
-}
-
-' ===== OBSERVAÇÕES =====
-note "Observações" as Notes {
-  * Animal tem 4 métodos especiais
-  * Uso extensivo de @property
-  * Encapsulamento bem implementado
-  * Persistência em JSON
-  * Regras de negócio validadas
-}
-
+    CalculadorCompatibilidade ..> Animal : usa
+    CalculadorCompatibilidade ..> Adotante : usa
+    Adotante ..> Animal : eh_elegivel()
