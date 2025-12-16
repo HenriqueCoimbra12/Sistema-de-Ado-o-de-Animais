@@ -98,8 +98,9 @@ CalculadorCompatibilidade → Animal, Adotante (dependência)
 1. Clonar o repositório:
 git clone https://github.com/seu-usuario/seu-repositorio.git \
 cd seu-repositorio \
- Executar programa (comando para ter acesso a toda a lista de comandos existente no programa) \
-   python main.py --help
+ \ 
+Executar programa (comando para ter acesso a toda a lista de comandos existente no programa) \n
+       python main.py --help
 
 ## Guia de uso 
 Usar "python main.py [comando] [argumentos]" \
