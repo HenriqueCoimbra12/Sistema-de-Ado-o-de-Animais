@@ -17,8 +17,8 @@
 """
 
 from datetime import datetime 
-from animal import Animal 
-from adotante import Adotante
+from classes.animal import Animal 
+from classes.adotante import Adotante
 
 class Adocao:
 
@@ -26,7 +26,7 @@ class Adocao:
         return {
             "reserva": self.reserva,
             "id": self.id,
-            "data_adocao": self.data_adocao.isoformat(),
+            "data_adocao": self.data_adocao,
             "termo_assinado": self.termo_assinado,
             "taxa": self.taxa,
             "comprovante": self.comprovante,

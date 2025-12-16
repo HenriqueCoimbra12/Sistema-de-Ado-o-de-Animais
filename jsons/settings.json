@@ -1,15 +1,15 @@
 {
 
-
-  "pesos_compatibilidade": {
-
-    "politicas": {
+  
+  "politicas": {
       "idade": 18,
       "area_minima_porte_G": 75,
       "porte_G_exige_casa": true,
       "area_minima_outros": 40
 
     },
+
+  "pesos_compatibilidade": {
 
 
     "porte_moradia": {

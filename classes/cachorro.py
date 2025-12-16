@@ -65,9 +65,9 @@ class Cachorro(Animal):
         
 #-------------------------------TESTES DE HERANÇA----------------------------------------------------
 
-animal = Cachorro(1, "Cachorro", "Labrador", "Masculino", "Marley", 24, "M", "dócil", "Disponível", "4", "3")
-print(animal.mostrar_informacoes())
+#animal = Cachorro(1, "Cachorro", "Labrador", "Masculino", "Marley", 24, "M", "dócil", "Disponivel", 4, 3)
+#print(animal.mostrar_informacoes())
 
-animal.atualizar_status("RESERVADO")
+#animal.atualizar_status("RESERVADO")
 
-print(animal.consultar_historico())
+#print(animal.consultar_historico())

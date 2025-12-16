@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "especie": "Cachorro",
+    "raca": "Mista",
+    "sexo": "M",
+    "nome": "marley",
+    "idade_meses": 24,
+    "porte": "M",
+    "temperamento": "d\u00f3cil",
+    "status": "ADOTADO"
+  },
+  {
+    "id": 2,
+    "especie": "Cachorro",
+    "raca": "Mista",
+    "sexo": "M",
+    "nome": "Marley",
+    "idade_meses": 24,
+    "porte": "M",
+    "temperamento": "d\u00f3cil",
+    "status": "ADOTADO"
+  },
+  {
+    "id": 3,
+    "especie": "Cachorro",
+    "raca": "Labrador",
+    "sexo": "M",
+    "nome": "Bidu",
+    "idade_meses": 24,
+    "porte": "M",
+    "temperamento": "d\u00f3cil",
+    "status": "ADOTADO"
+  },
+  {
+    "id": 4,
+    "especie": "Cachorro",
+    "raca": "Mista",
+    "sexo": "M",
+    "nome": "Francisco",
+    "idade_meses": 24,
+    "porte": "M",
+    "temperamento": "d\u00f3cil",
+    "status": "ADOTADO"
+  },
+  {
+    "id": 5,
+    "especie": "Cachorro",
+    "raca": "labrador",
+    "sexo": "M",
+    "nome": "Abelha",
+    "idade_meses": 24,
+    "porte": "M",
+    "temperamento": "d\u00f3cil",
+    "status": "ADOTADO"
+  }
+]

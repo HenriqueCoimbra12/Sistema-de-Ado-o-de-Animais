@@ -1,0 +1,12 @@
+[
+  {
+    "reserva": null,
+    "id": 1,
+    "data_adocao": "16/12/2025",
+    "termo_assinado": true,
+    "taxa": 0.0,
+    "comprovante": "N/A",
+    "animal": 5,
+    "adotante": 1
+  }
+]

@@ -45,7 +45,7 @@ class Adotante:
     def __init__(self, nome, id, idade, tipo_moradia, area_util, experiencia_com_pets, criancas_em_casa, outros_animais):
         self.nome = nome 
         self.id = id
-        self.__idade = idade
+        self.idade = idade
         self.__tipo_moradia = tipo_moradia 
         self.__area_util = area_util 
         self.__experiencia_com_pets = experiencia_com_pets
@@ -116,11 +116,8 @@ class Adotante:
         if animal.porte not in ["M", "P", "G"]:
             raise ValueError("O porte de um animal só pode ser definido em P, M ou G")
 
-        
-    def pontuacao_com_animal(self):
-        pass
 
-    def informacoes_adotantes(self):
-        pass 
+    def __str__(self):
+        return f"{self.nome} - {self.idade}"
 
 

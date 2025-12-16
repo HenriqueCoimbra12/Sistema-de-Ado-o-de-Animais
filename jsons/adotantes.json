@@ -1,0 +1,22 @@
+[
+  {
+    "nome": "Maria",
+    "id": 1,
+    "idade": 30,
+    "tipo_moradia": "casa",
+    "area_util": 80,
+    "experiencia_com_pets": 5,
+    "criancas_em_casa": "não",
+    "outros_animais": "sim"
+  },
+  {
+    "nome": "Ana",
+    "id": 2,
+    "idade": 30,
+    "tipo_moradia": "casa",
+    "area_util": 80,
+    "experiencia_com_pets": 5,
+    "criancas_em_casa": "não",
+    "outros_animais": "sim"
+  }
+]

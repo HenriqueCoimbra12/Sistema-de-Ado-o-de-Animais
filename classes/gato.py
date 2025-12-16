@@ -64,3 +64,5 @@ class Gato (Animal):
     def independencia(self, valor):
         if valor not in range (1,6):
             raise ValueError("A independência deve ser classificada de 1 a 5 (1 para pouquíssimo e 5 para totalmente independente)")
+        else:
+            self.__independencia = valor 

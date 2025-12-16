@@ -21,8 +21,8 @@
 """
 
 
-from animal import Animal 
-from adotante import Adotante 
+from classes.animal import Animal 
+from classes.adotante import Adotante 
 import json
 from datetime import datetime, timedelta
 

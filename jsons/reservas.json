@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "animal_id": 10,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T11:08:56.076098",
+    "data_expiracao": "2025-12-18T11:08:56.076112",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 2,
+    "animal_id": 4,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T11:12:30.029463",
+    "data_expiracao": "2025-12-18T11:12:30.029479",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 3,
+    "animal_id": 8,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T11:24:06.575891",
+    "data_expiracao": "2025-12-18T11:24:06.575908",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 4,
+    "animal_id": 5,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T11:49:05.047654",
+    "data_expiracao": "2025-12-18T11:49:05.047667",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 5,
+    "animal_id": 6,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T11:56:10.273241",
+    "data_expiracao": "2025-12-18T11:56:10.273258",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 6,
+    "animal_id": 7,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T12:00:26.688163",
+    "data_expiracao": "2025-12-18T12:00:26.688176",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 7,
+    "animal_id": 1,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T12:11:40.054262",
+    "data_expiracao": "2025-12-18T12:11:40.054275",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 8,
+    "animal_id": 2,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T12:24:51.047798",
+    "data_expiracao": "2025-12-18T12:24:51.047810",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 9,
+    "animal_id": 3,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T12:33:46.464038",
+    "data_expiracao": "2025-12-18T12:33:46.464052",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 10,
+    "animal_id": 4,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T12:36:36.760879",
+    "data_expiracao": "2025-12-18T12:36:36.760894",
+    "status_reserva": "ATIVA"
+  },
+  {
+    "id": 11,
+    "animal_id": 5,
+    "adotante_id": 1,
+    "data_criacao": "2025-12-16T12:41:49.342696",
+    "data_expiracao": "2025-12-18T12:41:49.342707",
+    "status_reserva": "ATIVA"
+  }
+]

@@ -31,6 +31,7 @@ class Animal:
         """
         Converte o objeto Animal para dicionário, pronto para ser salvo em JSON.
         """
+        
         return {
             "id": self.id,
             "especie": self.especie,
@@ -41,8 +42,6 @@ class Animal:
             "porte": self.porte,
             "temperamento": self.temperamento,
             "status": self.status,
-            "data_entrada": self.data_entrada.isoformat(),  # Converte datetime para string
-            "historico": self.__historico  
         }
     
 
@@ -53,7 +52,7 @@ class Animal:
         self.raca = raca
         self.sexo = sexo 
         self.nome = nome 
-        self.__idade_meses = idade_meses 
+        self.idade_meses = idade_meses 
         self.__porte = porte 
         self.temperamento = temperamento
         self.__status = None
