@@ -2,66 +2,44 @@
   {
     "id": 1,
     "especie": "Cachorro",
-    "raca": "Mista",
+    "raca": "Labrador",
     "sexo": "M",
-    "nome": "marley",
+    "nome": "Rex",
     "idade_meses": 24,
     "porte": "M",
     "temperamento": "d\u00f3cil",
-    "status": "ADOTADO"
+    "status": "RESERVADO"
   },
   {
     "id": 2,
-    "especie": "Cachorro",
-    "raca": "Mista",
-    "sexo": "M",
-    "nome": "Marley",
-    "idade_meses": 24,
-    "porte": "M",
-    "temperamento": "d\u00f3cil",
-    "status": "ADOTADO"
+    "especie": "Gato",
+    "raca": "Siames",
+    "sexo": "F",
+    "nome": "Luna",
+    "idade_meses": 12,
+    "porte": "P",
+    "temperamento": "arisco",
+    "status": "DISPONIVEL"
   },
   {
     "id": 3,
     "especie": "Cachorro",
-    "raca": "Labrador",
+    "raca": "Pastor Alem\u00e3o",
     "sexo": "M",
-    "nome": "Bidu",
-    "idade_meses": 24,
-    "porte": "M",
+    "nome": "Thor",
+    "idade_meses": 36,
+    "porte": "G",
     "temperamento": "d\u00f3cil",
-    "status": "ADOTADO"
+    "status": "DISPONIVEL"
   },
   {
     "id": 4,
-    "especie": "Cachorro",
+    "especie": "Gato",
     "raca": "Mista",
-    "sexo": "M",
-    "nome": "Francisco",
-    "idade_meses": 24,
-    "porte": "M",
-    "temperamento": "d\u00f3cil",
-    "status": "ADOTADO"
-  },
-  {
-    "id": 5,
-    "especie": "Cachorro",
-    "raca": "labrador",
-    "sexo": "M",
-    "nome": "Abelha",
-    "idade_meses": 24,
-    "porte": "M",
-    "temperamento": "d\u00f3cil",
-    "status": "ADOTADO"
-  },
-  {
-    "id": 6,
-    "especie": "Cachorro",
-    "raca": "Mista",
-    "sexo": "M",
-    "nome": "scooby",
-    "idade_meses": 24,
-    "porte": "M",
+    "sexo": "F",
+    "nome": "Mia",
+    "idade_meses": 6,
+    "porte": "P",
     "temperamento": "d\u00f3cil",
     "status": "DISPONIVEL"
   }

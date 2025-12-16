@@ -1,22 +1,33 @@
 [
   {
-    "nome": "Maria",
+    "nome": "João Silva",
     "id": 1,
-    "idade": 30,
+    "idade": 25,
     "tipo_moradia": "casa",
     "area_util": 80,
-    "experiencia_com_pets": 5,
+    "experiencia_com_pets": 4,
     "criancas_em_casa": "não",
+    "outros_animais": "não"
+  },
+  {
+    "nome": "Maria Souza",
+    "id": 2,
+    "idade": 30,
+    "tipo_moradia": "apartamento",
+    "area_util": 50,
+    "experiencia_com_pets": 2,
+    "criancas_em_casa": "sim",
     "outros_animais": "sim"
   },
   {
-    "nome": "Ana",
-    "id": 2,
-    "idade": 30,
-    "tipo_moradia": "casa",
-    "area_util": 80,
-    "experiencia_com_pets": 5,
+    "nome": "Ana Oliveira",
+    "id": 3,
+    "idade": 22,
+    "tipo_moradia": "apartamento",
+    "area_util": 40,
+    "experiencia_com_pets": 1,
     "criancas_em_casa": "não",
-    "outros_animais": "sim"
+    "outros_animais": "não"
   }
 ]
+

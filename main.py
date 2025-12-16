@@ -253,53 +253,72 @@ Exemplos de uso:
 
     #------------------------ARGS DE RESERVAR--------------------------------------
     
-   # No main.py, dentro de 'elif args.comando == "reservar":'
-
     elif args.comando == "reservar":
-        print("\n PROCESSO DE RESERVA")
+        print("\n📋 PROCESSO DE RESERVA")
         print("=" * 40)
 
         # 1. Busca o Animal
         animal = next((a for a in animais_em_memoria if a.id == args.animal_id), None)
         if not animal:
-            print(f" -> Animal ID {args.animal_id} não encontrado.")
+            print(f"❌ Animal ID {args.animal_id} não encontrado.")
             return
 
         # 2. Busca o Adotante
         adotante_encontrado = next((a for a in adotantes_em_memoria if a.id == args.adotante_id), None)
         if not adotante_encontrado:
-            print(f" -> Adotante ID {args.adotante_id} não encontrado.")
+            print(f"❌ Adotante ID {args.adotante_id} não encontrado.")
             return
 
-        # --- Lógica Sem Fila de Espera ---
-        
         if animal.status == "DISPONIVEL":
             try:
-                novo_id = max([r.id for r in reservas_em_memoria], default=0) + 1
-                nova_reserva = Reserva(id=novo_id, animal=animal, adotante=adotante_encontrado)
+                # Cálculo do ID CORRETO (para dicionários)
+                if reservas_em_memoria:  # Lista de dicionários
+                    novo_id = max([r.get('id', 0) for r in reservas_em_memoria]) + 1
+                else:
+                    novo_id = 1
                 
+                # Criar a reserva como dicionário (igual ao formato salvo)
+                nova_reserva = {
+                    'id': novo_id,
+                    'animal_id': animal.id,
+                    'adotante_id': adotante_encontrado.id,
+                    'animal_nome': animal.nome,
+                    'adotante_nome': adotante_encontrado.nome,
+                    'data_criacao': datetime.now().isoformat(),
+                    'data_expiracao': (datetime.now() + timedelta(hours=48)).isoformat(),
+                    'status_reserva': 'ATIVA'
+                }
+                
+                # Adicionar à lista (que é de dicionários)
                 reservas_em_memoria.append(nova_reserva)
+                
+                # Salvar
                 salvar_reservas(reservas_em_memoria)
                 
+                # Atualizar status do animal
                 animal.atualizar_status("RESERVADO")
                 salvar_animais(animais_em_memoria)
                 
-                expiracao_str = nova_reserva.data_expiracao.strftime('%d/%m/%Y às %H:%M')
+                # Formatar data para exibição
+                data_expiracao = datetime.fromisoformat(nova_reserva['data_expiracao'])
+                expiracao_str = data_expiracao.strftime('%d/%m/%Y às %H:%M')
 
-                print(f" -> SUCESSO! Animal {animal.nome} reservado por {adotante_encontrado.nome}.")
-                print(f" -> Reserva ATIVA (ID: {novo_id}). Expira em: {expiracao_str}")
+                print(f"✅ SUCESSO! Animal {animal.nome} reservado por {adotante_encontrado.nome}.")
+                print(f"📋 Reserva ATIVA (ID: {novo_id}). Expira em: {expiracao_str}")
                 
             except Exception as e:
-                print(f" -> Erro ao criar reserva: {e}")
+                print(f"❌ Erro ao criar reserva: {e}")
+                import traceback
+                traceback.print_exc()
 
         elif animal.status == "RESERVADO":
-            print(f" -> ERRO: Animal {animal.nome} já está RESERVADO e não aceita nova reserva.")
-
+            print(f"❌ ERRO: Animal {animal.nome} já está RESERVADO.")
+            
         elif animal.status == "ADOTADO":
-            print(f" -> Animal {animal.nome} já foi ADOTADO e não pode ser reservado.")
+            print(f"❌ Animal {animal.nome} já foi ADOTADO e não pode ser reservado.")
         
         else:
-            print(f" -> Animal {animal.nome} está com status '{animal.status}' e não pode ser reservado.")
+            print(f"❌ Animal {animal.nome} está com status '{animal.status}' e não pode ser reservado.")
 
 #------------------------------- ARGS DE ADOTAR -----------------------------------------
     elif args.comando == "adotar":

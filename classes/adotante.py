@@ -61,6 +61,8 @@ class Adotante:
     def idade(self, valor):
         if valor < 0:
             raise ValueError("A idade de um ser humano não pode ser negativa!")
+        elif valor < 18:
+            raise ValueError(" Um adotante não pode ser menor de idade ")
         else: 
             self.__idade = valor 
 
