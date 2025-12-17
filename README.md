@@ -114,9 +114,9 @@ python main.py reservar --animal_id 1 --adotante_id
 
 CADASTRAR ANIMAIS → python main.py cadastrar_animal
 
- CADASTRAR ADOTANTES → python main.py cadastrar_adotante
+CADASTRAR ADOTANTES → python main.py cadastrar_adotante
 
- CALCULAR COMPATIBILIDADE → python main.py calcular_compatibilidade
+CALCULAR COMPATIBILIDADE → python main.py calcular_compatibilidade
 
 RESERVAR ANIMAL → python main.py reservar
 
