@@ -112,3 +112,18 @@ python main.py --help
             
 python main.py reservar --animal_id 1 --adotante_id
 
+CADASTRAR ANIMAIS → python main.py cadastrar_animal
+
+ CADASTRAR ADOTANTES → python main.py cadastrar_adotante
+
+ CALCULAR COMPATIBILIDADE → python main.py calcular_compatibilidade
+
+RESERVAR ANIMAL → python main.py reservar
+
+EFETIVAR ADOÇÃO → python main.py adotar
+
+💡 DICA IMPORTANTE
+O sistema verifica automaticamente a compatibilidade durante o processo de reserva, garantindo adoções mais seguras e adequadas.
+
+
+
