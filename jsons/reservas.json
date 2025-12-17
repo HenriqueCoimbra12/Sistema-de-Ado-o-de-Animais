@@ -8,5 +8,16 @@
     "data_criacao": "2025-12-16T18:59:35.493808",
     "data_expiracao": "2025-12-18T18:59:35.493827",
     "status_reserva": "ATIVA"
+  },
+  {
+    "id": 2,
+    "animal_id": 3,
+    "adotante_id": 1,
+    "animal_nome": "Thor",
+    "adotante_nome": "João Silva",
+    "data_criacao": "2025-12-16T22:17:16.644144",
+    "data_expiracao": "2025-12-18T22:17:16.644181",
+    "status_reserva": "ATIVA",
+    "pontuacao_compatibilidade": 70
   }
 ]

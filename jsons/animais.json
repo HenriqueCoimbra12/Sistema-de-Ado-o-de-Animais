@@ -30,7 +30,7 @@
     "idade_meses": 36,
     "porte": "G",
     "temperamento": "d\u00f3cil",
-    "status": "DISPONIVEL"
+    "status": "RESERVADO"
   },
   {
     "id": 4,
@@ -41,6 +41,28 @@
     "idade_meses": 6,
     "porte": "P",
     "temperamento": "d\u00f3cil",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 5,
+    "especie": "Cachorro",
+    "raca": "Mista",
+    "sexo": "M",
+    "nome": "Rex",
+    "idade_meses": 36,
+    "porte": "G",
+    "temperamento": "d\u00f3cil",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 6,
+    "especie": "Gato",
+    "raca": "Mista",
+    "sexo": "F",
+    "nome": "Luna",
+    "idade_meses": 18,
+    "porte": "P",
+    "temperamento": "arisco",
     "status": "DISPONIVEL"
   }
 ]

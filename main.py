@@ -9,9 +9,62 @@ from classes.persistencia import salvar_adotantes, carregar_adotantes
 from classes.persistencia import salvar_reservas, carregar_reservas
 from classes.persistencia import salvar_adocoes, carregar_adocoes 
 from classes.persistencia import salvar_filas, carregar_filas
-from classes.adotante import Adotante 
+from classes.calculocompatibilidade import CalculadorCompatibilidade
+from classes.adotante import Adotante
 from datetime import datetime, timedelta
 
+#===============================ESSAS FUNÇÕES SÃO DESTINADAS AO CALCULO DE COMPATIBILIADDE==================================================
+def encontrar_animal_por_id(animais, animal_id):
+    """Encontra animal pelo ID"""
+    for animal in animais:
+        if animal.id == animal_id:
+            return animal
+    return None
+
+def encontrar_adotante_por_id(adotantes, adotante_id):
+    """Encontra adotante pelo ID"""
+    for adotante in adotantes:
+        if adotante.id == adotante_id:
+            return adotante
+    return None
+
+def calcular_e_exibir_compatibilidade(animal, adotante):
+    """Calcula e exibe compatibilidade de forma segura"""
+    if not animal or not adotante:
+        print("❌ Animal ou adotante não encontrado.")
+        return 0
+    
+    try:
+        calculador = CalculadorCompatibilidade()
+        
+        # Verificar elegibilidade primeiro
+        if not adotante.eh_elegivel(animal):
+            print(f"❌ {adotante.nome} NÃO é elegível para adotar {animal.nome}")
+            return 0
+        
+        # Calcular pontuação
+        pontuacao = calculador.calcular(animal, adotante)
+        
+        # Exibir resultado
+        print(f"\n📊 COMPATIBILIDADE: {pontuacao}/100")
+        print(f"   Animal: {animal.nome} ({animal.especie}, {animal.porte})")
+        print(f"   Adotante: {adotante.nome} ({adotante.idade} anos, {adotante.tipo_moradia})")
+        
+        # Interpretação
+        if pontuacao >= 80:
+            print("   ✅ COMPATIBILIDADE ALTA - Excelente combinação!")
+        elif pontuacao >= 60:
+            print("   ⚠️  COMPATIBILIDADE MÉDIA - Boa combinação")
+        elif pontuacao >= 40:
+            print("   ⚠️  COMPATIBILIDADE BAIXA - Avalie cuidadosamente")
+        else:
+            print("   ❌ COMPATIBILIDADE MUITO BAIXA - Não recomendado")
+        
+        return pontuacao
+        
+    except Exception as e:
+        print(f"⚠️  Erro ao calcular compatibilidade: {e}")
+        return 0
 
 
 def main():
@@ -112,6 +165,26 @@ Exemplos de uso:
 
     adotante_parser.add_argument('--outros_animais', choices=['sim', 'não'], default='não', help='Possui outros animais')
 
+
+    # -----------------------------LISTAR ADOTANTES-------------------------
+    listar_adotantes_parser = subparsers.add_parser('listar_adotantes',  help='Lista todos os adotantes cadastrados')
+
+    listar_adotantes_parser.add_argument('--idade-min', type=int, help='Filtrar por idade mínima')
+
+    listar_adotantes_parser.add_argument('--idade-max', type=int, help='Filtrar por idade máxima')
+
+    listar_adotantes_parser.add_argument('--moradia', choices=['casa', 'apartamento'], help='Filtrar por tipo de moradia')
+
+    listar_adotantes_parser.add_argument('--experiencia-min', type=int, choices=[1, 2, 3, 4, 5], help='Filtrar por experiência mínima (1-5)')
+
+    listar_adotantes_parser.add_argument('--criancas', choices=['sim', 'não'], help='Filtrar por presença de crianças')
+
+    #---------------------------------CALCULAR COMPATIBILIDADE---------------------
+
+    compat_parser = subparsers.add_parser('calcular_compatibilidade', help='Calcula compatibilidade entre animal e adotante')
+    compat_parser.add_argument('--animal_id', type=int, required=True, help='ID do animal')
+    compat_parser.add_argument('--adotante_id', type=int, required=True, help='ID do adotante')
+
     # --------------------------------RESERVAR---------------------------------------------
 
     reserva_parser = subparsers.add_parser('reservar', help = 'Reserva um animal para um adotante')
@@ -148,16 +221,7 @@ Exemplos de uso:
     # Relatório 3: Tempo médio entre entrada e adoção
     tempo_parser = rel_subparsers.add_parser('tempo', help='Tempo médio entre entrada e adoção')
 
- 
 
-    # ----------------- CALCULAR COMPATIBILIDADE ----------------------------------------------------
-
-
-    compat_parser = subparsers.add_parser('calcular_compatibilidade', help='Calcula compatibilidade entre animal e adotante')
-
-    compat_parser.add_argument('--animal_id', type=int, required=True, help='ID do animal')
-
-    compat_parser.add_argument('--adotante_id', type=int, required=True, help='ID do adotante')
 
 
     #-----------------------------------------------------------------------------------------------
@@ -250,6 +314,83 @@ Exemplos de uso:
         print(f"   ID: {adotante.id}")
         print(f"   Idade: {adotante.idade} anos")
         print(f"   Moradia: {adotante.tipo_moradia}")
+    
+    #---------------------------ARGS DE LISTAR_ADOTANTES---------------------------
+    elif args.comando == 'listar_adotantes':
+        print("\n -> LISTA DE ADOTANTES")
+        print("-" * 50)
+        
+        adotantes_filtrados = adotantes_em_memoria
+        
+        # Aplicar filtros
+        filtros_aplicados = []
+        
+        if args.idade_min:
+            adotantes_filtrados = [a for a in adotantes_filtrados if a.idade >= args.idade_min]
+            filtros_aplicados.append(f"idade >= {args.idade_min}")
+        
+        if args.idade_max:
+            adotantes_filtrados = [a for a in adotantes_filtrados if a.idade <= args.idade_max]
+            filtros_aplicados.append(f"idade <= {args.idade_max}")
+        
+        if args.moradia:
+            adotantes_filtrados = [a for a in adotantes_filtrados if a.tipo_moradia == args.moradia]
+            filtros_aplicados.append(f"moradia = '{args.moradia}'")
+        
+        if args.experiencia_min:
+            adotantes_filtrados = [a for a in adotantes_filtrados if a.experiencia_com_pets >= args.experiencia_min]
+            filtros_aplicados.append(f"experiência >= {args.experiencia_min}")
+        
+        if args.criancas:
+            tem_criancas = args.criancas == 'sim'
+            adotantes_filtrados = [a for a in adotantes_filtrados if a.criancas_em_casa == tem_criancas]
+            filtros_aplicados.append(f"crianças = '{args.criancas}'")
+        
+        # Mostrar filtros aplicados
+        if filtros_aplicados:
+            print(f"Filtros: {', '.join(filtros_aplicados)}")
+            print("-" * 50)
+        
+        if not adotantes_filtrados:
+            print("Nenhum adotante encontrado com os critérios especificados.")
+        else:
+            for adotante in adotantes_filtrados:
+                print(f"• ID: {adotante.id:3d} | {adotante.nome:20s} | "
+                    f"Idade: {adotante.idade:2d} anos | "
+                    f"Moradia: {adotante.tipo_moradia:12s} | "
+                    f"Área: {adotante.area_util:4.0f}m² | "
+                    f"Exp: {adotante.experiencia_com_pets}/5")
+                
+                # Informações adicionais em segunda linha
+                print(f"  {' '*6}Crianças: {'sim' if adotante.criancas_em_casa else 'não':3s} | "
+                    f"Outros animais: {'sim' if adotante.outros_animais else 'não':3s}")
+        
+        print(f"\n Total encontrado: {len(adotantes_filtrados)} adotante(s)")
+        print(f" Total geral: {len(adotantes_em_memoria)} adotante(s)")
+
+#-----------------------------ARGS DE CALCULAR COMPATIBILIDADE-----------------------------------------------------------
+
+# ----------------- ARGS DE CALCULAR COMPATIBILIDADE -----------------
+    elif args.comando == 'calcular_compatibilidade':
+        print("\n CÁLCULO DE COMPATIBILIDADE")
+        print("-" * 40)
+        
+        animal = encontrar_animal_por_id(animais_em_memoria, args.animal_id)
+        adotante = encontrar_adotante_por_id(adotantes_em_memoria, args.adotante_id)
+        
+        if not animal:
+            print(f" -> Animal ID {args.animal} não encontrado.")
+            if animais_em_memoria:
+                print(f"   IDs disponíveis: {[a.id for a in animais_em_memoria]}")
+            return
+        
+        if not adotante:
+            print(f" -> Adotante ID {args.adotante} não encontrado.")
+            if adotantes_em_memoria:
+                print(f"   IDs disponíveis: {[a.id for a in adotantes_em_memoria]}")
+            return
+        
+        calcular_e_exibir_compatibilidade(animal, adotante)
 
     #------------------------ARGS DE RESERVAR--------------------------------------
     
@@ -269,56 +410,101 @@ Exemplos de uso:
             print(f"❌ Adotante ID {args.adotante_id} não encontrado.")
             return
 
-        if animal.status == "DISPONIVEL":
-            try:
-                # Cálculo do ID CORRETO (para dicionários)
-                if reservas_em_memoria:  # Lista de dicionários
-                    novo_id = max([r.get('id', 0) for r in reservas_em_memoria]) + 1
-                else:
-                    novo_id = 1
-                
-                # Criar a reserva como dicionário (igual ao formato salvo)
-                nova_reserva = {
-                    'id': novo_id,
-                    'animal_id': animal.id,
-                    'adotante_id': adotante_encontrado.id,
-                    'animal_nome': animal.nome,
-                    'adotante_nome': adotante_encontrado.nome,
-                    'data_criacao': datetime.now().isoformat(),
-                    'data_expiracao': (datetime.now() + timedelta(hours=48)).isoformat(),
-                    'status_reserva': 'ATIVA'
-                }
-                
-                # Adicionar à lista (que é de dicionários)
-                reservas_em_memoria.append(nova_reserva)
-                
-                # Salvar
-                salvar_reservas(reservas_em_memoria)
-                
-                # Atualizar status do animal
-                animal.atualizar_status("RESERVADO")
-                salvar_animais(animais_em_memoria)
-                
-                # Formatar data para exibição
-                data_expiracao = datetime.fromisoformat(nova_reserva['data_expiracao'])
-                expiracao_str = data_expiracao.strftime('%d/%m/%Y às %H:%M')
-
-                print(f"✅ SUCESSO! Animal {animal.nome} reservado por {adotante_encontrado.nome}.")
-                print(f"📋 Reserva ATIVA (ID: {novo_id}). Expira em: {expiracao_str}")
-                
-            except Exception as e:
-                print(f"❌ Erro ao criar reserva: {e}")
-                import traceback
-                traceback.print_exc()
-
-        elif animal.status == "RESERVADO":
-            print(f"❌ ERRO: Animal {animal.nome} já está RESERVADO.")
-            
-        elif animal.status == "ADOTADO":
-            print(f"❌ Animal {animal.nome} já foi ADOTADO e não pode ser reservado.")
+        # 3. Verificar se animal está disponível
+        if animal.status != "DISPONIVEL":
+            print(f"❌ {animal.nome} não está disponível para reserva.")
+            print(f"   Status atual: {animal.status}")
+            return
         
-        else:
-            print(f"❌ Animal {animal.nome} está com status '{animal.status}' e não pode ser reservado.")
+        # 4. VERIFICAÇÃO DE COMPATIBILIDADE (NOVO)
+        print("\n🔍 VERIFICANDO COMPATIBILIDADE...")
+        
+        try:
+            # Usar a função calcular_e_exibir_compatibilidade que você já tem
+            pontuacao = calcular_e_exibir_compatibilidade(animal, adotante_encontrado)
+            
+            # Verificar se compatibilidade é muito baixa
+            if pontuacao < 40:
+                print(f"\n⚠️  ATENÇÃO: Compatibilidade muito baixa ({pontuacao}/100)")
+                print("   Recomendação: Considere outros animais mais compatíveis")
+                
+                # Perguntar se quer continuar mesmo assim (OPCIONAL - pode remover)
+                print("\n   Deseja continuar com a reserva mesmo assim?")
+                resposta = input("   Digite 'S' para SIM ou qualquer tecla para NÃO: ")
+                
+                if resposta.upper() != 'S':
+                    print("   ❌ Reserva cancelada pelo usuário.")
+                    return
+            
+            elif pontuacao < 60:
+                print(f"\n⚠️  Compatibilidade moderada ({pontuacao}/100)")
+                print("   Reserva permitida, mas recomenda-se avaliação cuidadosa")
+            
+            else:
+                print(f"\n✅ Compatibilidade adequada ({pontuacao}/100)")
+                print("   Reserva recomendada!")
+                
+        except Exception as e:
+            print(f"⚠️  Não foi possível verificar compatibilidade: {e}")
+            print("   Continuando com reserva sem verificação...")
+        
+        # 5. PROCESSAR A RESERVA
+        print("\n📝 PROCESSANDO RESERVA...")
+        
+        try:
+            # Cálculo do ID CORRETO (para dicionários)
+            if reservas_em_memoria:  # Lista de dicionários
+                novo_id = max([r.get('id', 0) for r in reservas_em_memoria]) + 1
+            else:
+                novo_id = 1
+            
+            # Criar a reserva como dicionário (igual ao formato salvo)
+            nova_reserva = {
+                'id': novo_id,
+                'animal_id': animal.id,
+                'adotante_id': adotante_encontrado.id,
+                'animal_nome': animal.nome,
+                'adotante_nome': adotante_encontrado.nome,
+                'data_criacao': datetime.now().isoformat(),
+                'data_expiracao': (datetime.now() + timedelta(hours=48)).isoformat(),
+                'status_reserva': 'ATIVA',
+                'pontuacao_compatibilidade': pontuacao if 'pontuacao' in locals() else None  # Salva a pontuação
+            }
+            
+            # Adicionar à lista (que é de dicionários)
+            reservas_em_memoria.append(nova_reserva)
+            
+            # Salvar
+            salvar_reservas(reservas_em_memoria)
+            
+            # Atualizar status do animal
+            animal.atualizar_status("RESERVADO")
+            salvar_animais(animais_em_memoria)
+            
+            # Formatar data para exibição
+            data_expiracao = datetime.fromisoformat(nova_reserva['data_expiracao'])
+            expiracao_str = data_expiracao.strftime('%d/%m/%Y às %H:%M')
+
+            print(f"\n🎉✅ RESERVA REALIZADA COM SUCESSO!")
+            print(f"   Animal: {animal.nome}")
+            print(f"   Adotante: {adotante_encontrado.nome}")
+            print(f"   ID da Reserva: {novo_id}")
+            print(f"   Expira em: {expiracao_str}")
+            
+            if 'pontuacao' in locals() and pontuacao is not None:
+                print(f"   Compatibilidade: {pontuacao}/100")
+            
+        except Exception as e:
+            print(f"❌ Erro ao criar reserva: {e}")
+            import traceback
+            traceback.print_exc()
+
+    elif animal.status == "RESERVADO":
+        print(f"❌ ERRO: Animal {animal.nome} já está RESERVADO.")
+        
+    elif animal.status == "ADOTADO":
+        print(f"❌ Animal {animal.nome} já foi ADOTADO e não pode ser reservado.")
+
 
 #------------------------------- ARGS DE ADOTAR -----------------------------------------
     elif args.comando == "adotar":

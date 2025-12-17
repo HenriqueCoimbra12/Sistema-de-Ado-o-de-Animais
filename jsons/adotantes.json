@@ -28,6 +28,25 @@
     "experiencia_com_pets": 1,
     "criancas_em_casa": "não",
     "outros_animais": "não"
+  },
+  {
+    "nome": "Maria",
+    "id": 4,
+    "idade": 28,
+    "tipo_moradia": "apartamento",
+    "area_util": 60,
+    "experiencia_com_pets": 2,
+    "criancas_em_casa": "sim",
+    "outros_animais": "sim"
+  },
+  {
+    "nome": "MãeComFilhos",
+    "id": 5,
+    "idade": 32,
+    "tipo_moradia": "apartamento",
+    "area_util": 60,
+    "experiencia_com_pets": 2,
+    "criancas_em_casa": "sim",
+    "outros_animais": "sim"
   }
 ]
-
