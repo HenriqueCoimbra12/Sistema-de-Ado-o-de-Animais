@@ -100,10 +100,11 @@ Primeiro passo: git clone https://github.com/seu-usuario/seu-repositorio.git
 
 Segundo passo: cd seu-repositorio 
  
-***-Executar programa*** (comando para ter acesso a toda a lista de comandos existente no programa):
- 
-**python main.py --help**
+##  ***COMO USAR O SISTEMA***
 
+### ** COMANDO DE AJUDA**
+```bash
+python main.py --help
 ## Guia de uso 
 ***-Usar "python main.py [comando] [argumentos]"***
 
